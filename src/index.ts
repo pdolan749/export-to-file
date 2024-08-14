@@ -11,34 +11,34 @@ export type ExportTypes =
   | "XLSX"
   | "xlsx";
 
-export const exportTo = (
-  csvData: any[],
+export default function exportTo(
+  data: any[],
   fileName: string,
   exportType: ExportTypes
-) => {
+) {
   let fileExtension = "";
   let blob: Blob;
 
   switch (exportType.toUpperCase()) {
     case "CSV":
       fileExtension = ".csv";
-      blob = exportToCsv(csvData);
+      blob = exportToCsv(data);
       break;
     case "XLSX":
     case "EXCEL":
       fileExtension = ".xlsx";
-      blob = exportToXLSX(csvData);
+      blob = exportToXLSX(data);
       break;
     case "XLS":
       fileExtension = ".xls";
-      blob = exportToXLS(csvData);
+      blob = exportToXLS(data);
       break;
     default:
       return;
   }
 
   saveAs(blob, fileName + fileExtension);
-};
+}
 
 const defaultExcelBuffer = (csvData: any[], isXLSX: boolean) => {
   const ws = XLSX.utils.json_to_sheet(csvData);
