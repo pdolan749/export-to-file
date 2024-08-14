@@ -1,6 +1,6 @@
 {
   "name": "file-export",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "export to xlsx, xls, and csv files from an array",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
