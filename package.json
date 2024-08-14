@@ -8,6 +8,7 @@
   "scripts": {
     "publish": "npm publish",
     "build": "tsup src/index.ts --dts --format cjs,esm",
+    "release": "pnpm run build && changeset publish",
     "lint": "tsc"
   },
   "keywords": [
