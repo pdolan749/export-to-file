@@ -6,9 +6,8 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "publish": "npm publish",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "release": "pnpm run build && changeset publish --access public",
+    "release": "pnpm run build && changeset publish",
     "lint": "tsc"
   },
   "keywords": [
