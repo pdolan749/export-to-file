@@ -12,7 +12,7 @@ export type ExportTypes =
   | "xlsx";
 
 export default function exportTo(
-  data: any[],
+  data: unknown[],
   fileName: string,
   exportType: ExportTypes
 ) {
@@ -40,26 +40,26 @@ export default function exportTo(
   saveAs(blob, fileName + fileExtension);
 }
 
-const defaultExcelBuffer = (csvData: any[], isXLSX: boolean) => {
+const defaultExcelBuffer = (csvData: unknown[], isXLSX: boolean) => {
   const ws = XLSX.utils.json_to_sheet(csvData);
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   return XLSX.write(wb, { bookType: isXLSX ? "xlsx" : "xls", type: "array" });
 };
 
-const exportToXLSX = (csvData: any[]): Blob => {
+const exportToXLSX = (csvData: unknown[]): Blob => {
   const type =
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const excelBuffer = defaultExcelBuffer(csvData, true);
   return new Blob([excelBuffer], { type });
 };
 
-const exportToXLS = (csvData: any[]): Blob => {
+const exportToXLS = (csvData: unknown[]): Blob => {
   const type = "application/vnd.ms-excel";
   const excelBuffer = defaultExcelBuffer(csvData, false);
   return new Blob([excelBuffer], { type });
 };
 
-const exportToCsv = (csvData: any[]): Blob => {
+const exportToCsv = (csvData: unknown[]): Blob => {
   const type = "text/plain;charset=UTF-8";
   const ws = XLSX.utils.json_to_sheet(csvData);
   const csv = XLSX.utils.sheet_to_csv(ws);

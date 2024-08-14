@@ -2,10 +2,13 @@
   "name": "file-export",
   "version": "1.0.0",
   "description": "export to xlsx, xls, and csv files from an array",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "publish": "npm publish",
-    "build": "tsup"
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "lint": "tsc"
   },
   "keywords": [
     "file-export",
@@ -23,6 +26,8 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "tsup": "^8.2.4"
+    "@changesets/cli": "^2.27.7",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
   }
 }
