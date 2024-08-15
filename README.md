@@ -5,23 +5,23 @@ Simple export utility that will export to CSV, XLS, and XLSX formats.
 ## Installation
 
 ```bash
-npm install export-to
+npm install export-to-file
 ```
 
 ## Usage
 
-To use the export-to utility, import it into your JavaScript file:
+To use the export-to-file utility, import it into your JavaScript file:
 
 ```javascript
-import fileExport from "file-export";
+import exportToFile from "export-to-file";
 ```
 
-### Export to CSV
+### Export
 
-To export data to CSV format, use the `exportToCSV` function:
+To export data to CSV format, use the `exportToFile` function:
 
 ```javascript
-fileExport(data, filename, exportType);
+exportToFile(data, filename, exportType);
 ```
 
 - `data` (required): The data to be exported.
@@ -31,10 +31,10 @@ fileExport(data, filename, exportType);
 
 ## Example
 
-Here's an example of how to use the export-to utility:
+Here's an example of how to use the export-to-file utility:
 
 ```javascript
-import fileExport from "export-to";
+import exportToFile from "export-to-file";
 
 const data = [
   ["Name", "Age", "Email"],
@@ -42,7 +42,7 @@ const data = [
   ["Jane Smith", 25, "jane@example.com"],
 ];
 
-fileExport(data, "users", "CSV");
+exportToFile(data, "users", "CSV");
 ```
 
 This will export the `data` array to a CSV file named `users.csv`.

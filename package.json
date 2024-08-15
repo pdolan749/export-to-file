@@ -1,5 +1,5 @@
 {
-  "name": "@pdolan/file-export",
+  "name": "export-to-file",
   "version": "1.0.1",
   "description": "export to xlsx, xls, and csv files from an array",
   "main": "dist/index.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "release": "pnpm run build && changeset publish",
-    "lint": "tsc"
+    "lint": "tsc",
+    "changesets": "pnpm changeset"
   },
   "keywords": [
     "file-export",
