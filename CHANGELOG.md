@@ -1,5 +1,11 @@
 # file-export
 
+## 1.0.2
+
+### Patch Changes
+
+- db74873: Updating README.md
+
 ## 1.0.1
 
 ### Patch Changes
