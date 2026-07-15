@@ -21,13 +21,14 @@ import exportToFile from "export-to-file";
 To export data to CSV format, use the `exportToFile` function:
 
 ```javascript
-exportToFile(data, filename, exportType);
+exportToFile(data, filename, exportType, sheetName);
 ```
 
 - `data` (required): The data to be exported.
 - `filename` (required): The name of the exported file.
 - `exportType` (required): The file ending for the file.
   - "CSV", "csv", "EXCEL", "excel", "xls", "XLS", "XLSX", "xlsx"
+- `sheetName` (optional): The name of the worksheet in xls/xlsx exports. Defaults to `"data"`. Ignored for CSV.
 
 ## Example
 
