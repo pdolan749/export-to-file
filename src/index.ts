@@ -1,5 +1,5 @@
 import { saveAs } from "file-saver";
-import XLSX from "xlsx";
+import { utils, write } from "xlsx";
 
 export type ExportTypes =
   | "CSV"
@@ -14,7 +14,8 @@ export type ExportTypes =
 export default function exportTo(
   data: unknown[],
   fileName: string,
-  exportType: ExportTypes
+  exportType: ExportTypes,
+  sheetName = "data"
 ) {
   let fileExtension = "";
   let blob: Blob;
@@ -27,11 +28,11 @@ export default function exportTo(
     case "XLSX":
     case "EXCEL":
       fileExtension = ".xlsx";
-      blob = exportToXLSX(data);
+      blob = exportToXLSX(data, sheetName);
       break;
     case "XLS":
       fileExtension = ".xls";
-      blob = exportToXLS(data);
+      blob = exportToXLS(data, sheetName);
       break;
     default:
       return;
@@ -40,29 +41,33 @@ export default function exportTo(
   saveAs(blob, fileName + fileExtension);
 }
 
-const defaultExcelBuffer = (csvData: unknown[], isXLSX: boolean) => {
-  const ws = XLSX.utils.json_to_sheet(csvData);
-  const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-  return XLSX.write(wb, { bookType: isXLSX ? "xlsx" : "xls", type: "array" });
+const defaultExcelBuffer = (
+  csvData: unknown[],
+  isXLSX: boolean,
+  sheetName: string
+) => {
+  const ws = utils.json_to_sheet(csvData);
+  const wb = { Sheets: { [sheetName]: ws }, SheetNames: [sheetName] };
+  return write(wb, { bookType: isXLSX ? "xlsx" : "xls", type: "array" });
 };
 
-const exportToXLSX = (csvData: unknown[]): Blob => {
+const exportToXLSX = (csvData: unknown[], sheetName: string): Blob => {
   const type =
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-  const excelBuffer = defaultExcelBuffer(csvData, true);
+  const excelBuffer = defaultExcelBuffer(csvData, true, sheetName);
   return new Blob([excelBuffer], { type });
 };
 
-const exportToXLS = (csvData: unknown[]): Blob => {
+const exportToXLS = (csvData: unknown[], sheetName: string): Blob => {
   const type = "application/vnd.ms-excel";
-  const excelBuffer = defaultExcelBuffer(csvData, false);
+  const excelBuffer = defaultExcelBuffer(csvData, false, sheetName);
   return new Blob([excelBuffer], { type });
 };
 
 const exportToCsv = (csvData: unknown[]): Blob => {
   const type = "text/plain;charset=UTF-8";
-  const ws = XLSX.utils.json_to_sheet(csvData);
-  const csv = XLSX.utils.sheet_to_csv(ws);
+  const ws = utils.json_to_sheet(csvData);
+  const csv = utils.sheet_to_csv(ws);
 
   return new Blob([csv], { type });
 };
